@@ -1,0 +1,22 @@
+{
+  "cmake.generator": "Ninja",
+
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+
+  "cmake.configureArgs": [
+    "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cmake/arm-none-eabi.cmake",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+  ],
+
+  "cmake.configureOnOpen": true,
+
+  "cmake.sourceDirectory": "${workspaceFolder}",
+
+  "cmake.buildArgs": [
+    "--"
+  ],
+
+  "cmake.loggingLevel": "debug",
+
+  "cmake.allowUnsupportedPresets": true
+}

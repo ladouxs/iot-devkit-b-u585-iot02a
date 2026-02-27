@@ -1,0 +1,70 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# debug information files
+*.dwo
+
+# .vscode/
+.settings/
+.metadata/
+.theia
+.cache
+_deps/
+build/
+Debug/
+CMakeFiles/
+CMakeScripts/
+CMakeLists.txt.user
+CMakeCache.txt
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+*.dep
+*.o
+*.axf
+*.map
+*.a
+*.htm
+#shared/lib/netxduo/.gitattributes
+shared/lib/netxduo/.gitignore
+#shared/lib/threadx/.gitattributes
+shared/lib/threadx/.gitignore
