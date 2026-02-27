@@ -1,4 +1,4 @@
-# iot-devkit-U585AIIQ
+# iot-devkit-b-u585-iot2a
 
 Example of project using the ARM build toolchain for STM32 board B-U585I-IOT02A.
 
