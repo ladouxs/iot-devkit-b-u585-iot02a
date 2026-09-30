@@ -1,9 +1,9 @@
 # Setup WIFI for the B-U585I-IOT02A board
 
-Here is a sample project illustrating how to install an RTOS (ThreadX/NetXDuo) on an existing project for the B-U585I-IOT02A board.
-Step 1: Installing dependencies (U585AIIQ template directory).
-Step 2: The main application loop (usually in main.c) is started within a thread (app_netxduo.c file).
-Step 3: Wi-Fi initialization (MXCHIP drivers), also within a NetXDuo thread.
+Here is a sample project illustrating how to install an RTOS (ThreadX/NetXDuo) on an existing project for the B-U585I-IOT02A board.  
+Step 1: Installing dependencies (U585AIIQ template directory).  
+Step 2: The main application loop (usually in main.c) is started within a thread (app_netxduo.c file).  
+Step 3: Wi-Fi initialization (MXCHIP drivers), also within a NetXDuo thread.  
 
 ## Requirements
 
