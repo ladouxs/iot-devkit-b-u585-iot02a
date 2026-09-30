@@ -1,12 +1,15 @@
-# Setup WIFI for the 
+# Setup WIFI for the B-U585I-IOT02A board
 
-This repo hosts the firmware for a project using WI-FI (mxchip) designed to be flashed on a B-U585I-IOT02A development board (STM32). .
+Here is a sample project illustrating how to install an RTOS (ThreadX/NetXDuo) on an existing project for the B-U585I-IOT02A board.
+Step 1: Installing dependencies (U585AIIQ template directory).
+Step 2: The main application loop (usually in main.c) is started within a thread (app_netxduo.c file).
+Step 3: Wi-Fi initialization (MXCHIP drivers), also within a NetXDuo thread.
 
 ## Requirements
 
 ### Hardware
 
-- 2 [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) board
+- [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) board
 
 ### Software
 
@@ -14,7 +17,7 @@ This repo hosts the firmware for a project using WI-FI (mxchip) designed to be f
 - `cmake` (≥3.10)  
 - `ninja-build`  
 
-If you want to compile and flash with VSCode one option si to install VSCode with STM32Cube Core extension.
+If you want to compile and flash with VSCode, one option is to install VSCode with STM32Cube Core extension.
 
 ## Getting started
 
