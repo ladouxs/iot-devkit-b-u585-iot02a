@@ -1,0 +1,15 @@
+{
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureArgs": [
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    ],
+    "cmake.configureOnOpen": true,
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.buildArgs": [
+        "--"
+    ],
+    "cmake.loggingLevel": "debug",
+    "cmake.allowUnsupportedPresets": true,
+    "cortex-debug.variableUseNaturalFormat": true
+}

@@ -1,0 +1,6 @@
+[submodule "U585AIIQ/shared/lib/netxduo"]
+	path = U585AIIQ/shared/lib/netxduo
+	url = https://github.com/eclipse-threadx/netxduo.git
+[submodule "U585AIIQ/shared/lib/threadx"]
+	path = U585AIIQ/shared/lib/threadx
+	url = https://github.com/eclipse-threadx/threadx.git
