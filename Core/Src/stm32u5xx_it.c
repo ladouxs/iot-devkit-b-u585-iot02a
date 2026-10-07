@@ -60,6 +60,11 @@ extern UART_HandleTypeDef huart2;
 /* stm32u5xx_hal_timebase_tim.c: HAL time base now runs on TIM6, since
    ThreadX owns SysTick (see MX_ThreadX_Init() in app_threadx.c). */
 extern TIM_HandleTypeDef htim6;
+/* MXCHIP EMW3080 WiFi module: SPI2 + its two GPDMA channels (handles defined
+   in stm32u5xx_hal_msp.c, SPI2 itself in main.c). */
+extern SPI_HandleTypeDef hspi2;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel4;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel5;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -210,6 +215,60 @@ void USART2_IRQHandler(void)
 void TIM6_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&htim6);
+}
+
+/* --- MXCHIP EMW3080 WiFi module ------------------------------------------
+   These IRQs are enabled in the NVIC (MX_GPIO_Init(), MX_GPDMA1_Init(),
+   HAL_SPI_MspInit()). Without a handler the vector falls back to the weak
+   Default_Handler (startup file), an infinite loop: this is where the
+   firmware used to freeze as soon as the module toggled NOTIFY/FLOW. */
+
+/**
+  * @brief This function handles EXTI Line13 interrupt (CALLBACK_MASTER_TO_SLAVE).
+  */
+void EXTI13_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(CALLBACK_MASTER_TO_SLAVE_Pin);
+}
+
+/**
+  * @brief This function handles EXTI Line14 interrupt (MXCHIP_NOTIFY).
+  */
+void EXTI14_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(MXCHIP_NOTIFY_Pin);
+}
+
+/**
+  * @brief This function handles EXTI Line15 interrupt (MXCHIP_FLOW).
+  */
+void EXTI15_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(MXCHIP_FLOW_Pin);
+}
+
+/**
+  * @brief This function handles GPDMA1 Channel 4 global interrupt (SPI2 RX).
+  */
+void GPDMA1_Channel4_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel4);
+}
+
+/**
+  * @brief This function handles GPDMA1 Channel 5 global interrupt (SPI2 TX).
+  */
+void GPDMA1_Channel5_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel5);
+}
+
+/**
+  * @brief This function handles SPI2 global interrupt.
+  */
+void SPI2_IRQHandler(void)
+{
+  HAL_SPI_IRQHandler(&hspi2);
 }
 
 /* USER CODE BEGIN 1 */

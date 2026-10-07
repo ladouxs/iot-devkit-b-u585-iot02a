@@ -31,9 +31,23 @@ extern "C"
  * (sensor / CAN bring-up) and its while(1) loop (EVSE handling, data
  * acquisition, EKF update, CAN + UART reporting). Sized generously: the
  * loop keeps a UART formatting buffer and several float locals on the
- * stack. */
+ * stack.
+ *
+ * Priority map (ThreadX: numerically LOWER = MORE urgent, no time slicing):
+ *   1  MX_WIFI_SPI_THREAD_PRIORITY      (EMW3080 SPI tx/rx)
+ *   3  BSD_COMPAT_LAYER_THREAD_PRIORITY
+ *   8  WIFI_THREAD_PRIORITY             (WiFi bring-up: runs first, then blocks)
+ *   9  MX_WIFI_RECEIVED/TRANSMIT_THREAD_PRIORITY
+ *  10  NETX_IP_THREAD_PRIORITY          (nx_user.h)
+ *  11  NX_DHCP_THREAD_PRIORITY          (NETX_IP_THREAD_PRIORITY + 1)
+ *  12  MAIN_THREAD_PRIORITY             (business logic: must stay BELOW every
+ *                                        network thread, otherwise a busy loop
+ *                                        in mainThread starves them -- and with
+ *                                        no time slicing, equal priority is
+ *                                        not enough either)
+ */
 #define MAIN_THREAD_STACK_SIZE 4096
-#define MAIN_THREAD_PRIORITY 10
+#define MAIN_THREAD_PRIORITY 12
 
     /* --- Network / WiFi bring-up -----------------------------------------------
      * a packet pool + NetX IP instance backed by the MXCHIP EMW3080 driver (nx_driver_emw3080_entry),
@@ -61,9 +75,11 @@ extern "C"
 #define BSD_COMPAT_LAYER_THREAD_PRIORITY 3
 
 #define WIFI_THREAD_STACK_SIZE 4096
-/* Numerically higher than MAIN_THREAD_PRIORITY -- i.e. LOWER priority:
- * Business logic always preempts WiFi bring-up, never the other way around. */
-#define WIFI_THREAD_PRIORITY 12
+/* Numerically lower than MAIN_THREAD_PRIORITY -- i.e. HIGHER priority:
+ * WiFi bring-up always starts before (and preempts) the business logic. It
+ * mostly blocks (module init, link wait, DHCP wait), so it does not hold the
+ * CPU. Keep it above the network threads it creates (IP 10, DHCP 11). */
+#define WIFI_THREAD_PRIORITY 8
 
 /* How long the WiFi thread waits for the link (SSID association, done by the
  * IP thread) before giving up. */
