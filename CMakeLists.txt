@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.22)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/U585AIIQ/cmake)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
+include(utilities)
+
 project(WiFi_template
     LANGUAGES C ASM
 )
@@ -21,6 +23,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 # ---------------------------------------------------------------------------
 
 add_executable(${PROJECT_NAME})
+
+set(CMAKE_EXECUTABLE_SUFFIX ".elf")
+
+add_arm_post_build_with_usage(${PROJECT_NAME} 2048 786)
 
 add_compile_definitions(NX_BSD_ENABLE_NATIVE_API)
 
