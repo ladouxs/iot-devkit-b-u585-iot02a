@@ -1,0 +1,59 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug STM32 (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+
+      "servertype": "openocd",
+      "showDevDebugOutput": "raw",
+
+      "armToolchainPath": "/home/team/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin",
+
+      "cwd": "${workspaceFolder}/build/debug-user",
+      "executable": "${workspaceFolder}/build/debug-user/WiFi_template.elf",
+
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32u5x.cfg"
+      ],
+
+      "device": "STM32U585",
+      "interface": "swd",
+
+      "runToEntryPoint": "main",
+
+      "svdFile": "${workspaceFolder}/svd/STM32U585.svd"
+    },
+    {
+      "name": "Debug STM32U585 (ST-LINK V2-1, CubeProgrammer)",
+      "type": "cortex-debug",
+      "request": "launch",
+
+      "servertype": "stlink",
+      "armToolchainPath": "/opt/binutils-2.46.0/bin/",
+
+      "cwd": "${workspaceFolder}/build/debug-user",
+      "executable": "${workspaceFolder}/build/debug-user/WiFi_template.elf",
+
+      "device": "STM32U585",
+      "interface": "swd",
+
+      "runToEntryPoint": "main",
+
+      "svdFile": "${workspaceFolder}/svd/STM32U585.svd",
+
+      "serverpath": "/opt/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/ST-LINK_gdbserver",
+
+      "serverArgs": [
+        "--swd",
+        "--port", "3333",
+        "--reset",
+        "--halt"
+      ],
+
+      "gdbTarget": "localhost:3333"
+    }
+  ]
+}

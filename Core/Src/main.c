@@ -73,6 +73,7 @@ static void MX_I2C2_Init(void);
 static void MX_FDCAN1_Init(void);
 static void MX_RTC_Init(void);
 static void MX_RNG_Init(void);
+static void MX_GPDMA1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -126,6 +127,7 @@ int main(void)
     MX_ICACHE_Init();
     MX_USART1_UART_Init();
     MX_USART2_UART_Init();
+    MX_GPDMA1_Init();
     MX_SPI2_Init();
     MX_RNG_Init();
     MX_I2C2_Init();
@@ -224,6 +226,10 @@ static void SystemPower_Config(void)
         Error_Handler();
     }
     /* USER CODE BEGIN PWR */
+
+    /* SystemPower_Config */
+    HAL_PWREx_EnableVddIO2();
+
     /* USER CODE END PWR */
 }
 
@@ -515,6 +521,15 @@ static void MX_USART2_UART_Init(void)
     /* USER CODE END USART2_Init 2 */
 }
 
+static void MX_GPDMA1_Init(void)
+{
+    __HAL_RCC_GPDMA1_CLK_ENABLE();
+    HAL_NVIC_SetPriority(GPDMA1_Channel4_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(GPDMA1_Channel4_IRQn);
+    HAL_NVIC_SetPriority(GPDMA1_Channel5_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(GPDMA1_Channel5_IRQn);
+}
+
 /**
  * @brief SPI2 Initialization Function
  * @param None
@@ -588,6 +603,9 @@ static void MX_GPIO_Init(void)
     __HAL_RCC_GPIOH_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOG_CLK_ENABLE();
 
     /*Configure GPIO pin Output Level */
     HAL_GPIO_WritePin(GPIOH, GPIO_PIN_13 | LED_RED_Pin | LED_GREEN_Pin, GPIO_PIN_RESET);

@@ -41,7 +41,7 @@ extern "C"
      * (nx_bsd_initialize), and a dedicated WiFi bring-up thread, independent
      * from mainThread so business logic never waits on the network.
      *
-     * The DHCP wait in WifiThreadEntry() is itself time-bounded (WIFI_DHCP_TIMEOUT_SECONDS)
+     * The DHCP wait in WifiThreadEntry() is itself time-bounded (WIFI_LINK_TIMEOUT_SECONDS)
      * instead of TX_WAIT_FOREVER, which makes a second thread unnecessary.
      * WiFi module init/association (MX_WIFI_Init()/MX_WIFI_Connect(), driven by
      * WIFI_SSID/WIFI_PASSWORD -- see U585AIIQ/platform/wifi/inc/mx_wifi_conf.h)
@@ -65,10 +65,9 @@ extern "C"
  * Business logic always preempts WiFi bring-up, never the other way around. */
 #define WIFI_THREAD_PRIORITY 12
 
-/* How long the WiFi thread waits for a DHCP lease before giving up and
- * returning. mainThread is unaffected either way -- see WifiThreadEntry()
- * in app_netxduo.c. */
-#define WIFI_DHCP_TIMEOUT_SECONDS 30
+/* How long the WiFi thread waits for the link (SSID association, done by the
+ * IP thread) before giving up. */
+#define WIFI_LINK_TIMEOUT_SECONDS 15
 
     /* Exported functions prototypes ---------------------------------------------*/
 
